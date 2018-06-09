@@ -1,4 +1,5 @@
 import ext from "./utils/ext";
+import storage from "./utils/storage";
 
 var suppress = () => {
   setTimeout(sNotification, 1000);
@@ -69,9 +70,22 @@ var sNotification = () => {
   removeOverlay();
 }
 
-overlay();
-// Call the suppress
-// sNotification();
-// setTimeout(sNotification, 1000);
+/* init
+ * Starting point for contentscript.js
+ */
+var init = () => {
+
+  storage.get('isRunning', function(resp) {
+    var isRunning = resp.isRunning;
+    if (isRunning) {
+      overlay();
+      // Call the suppress
+      setTimeout(sNotification, 1000);
+    } 
+  });  
+
+}
+
+init();
 
 ext.runtime.onMessage.addListener(onRequest);

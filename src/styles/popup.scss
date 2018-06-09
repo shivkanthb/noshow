@@ -1,8 +1,10 @@
 @import "modules/reset";
 @import "modules/variables";
 @import "modules/layout";
+@import "modules/grid";
 
 body, html {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   padding: 0;
   margin: 0;
 }
@@ -23,6 +25,18 @@ footer {
       color: $text-secondary;
     }
   }
+}
+
+.fa {
+  cursor: pointer;
+}
+
+.ten.column {
+  width: 80%;
+}
+
+.two.column {
+  width: 20%;
 }
 
 .popup-content {

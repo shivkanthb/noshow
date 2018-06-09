@@ -1,6 +1,59 @@
 import ext from "./utils/ext";
 import storage from "./utils/storage";
 
+var toggleElement = document.querySelector('.toggle-switch');
+var toggleON = document.querySelector('.fa-toggle-on');
+var toggleOFF = document.querySelector('.fa-toggle-off');
+
+toggleON.addEventListener('click', function(e) {
+  console.log('Toggle ON clicked');
+  setRunning(false);
+});
+
+toggleOFF.addEventListener('click', function(e) {
+  console.log('Toggle OFF clicked');
+  setRunning(true);
+});
+
+var setRunning = (set) => {
+  if (set) {
+    storage.set({ isRunning: true }, function() {
+      displayToggleButtons();
+    });
+  } else {
+    storage.set({ isRunning: false }, function() {
+      displayToggleButtons();
+    });
+  }
+}
+
+var displayToggleButtons = () => {
+  storage.get('isRunning', function(resp) {
+    
+    var isRunning = resp.isRunning;
+    if (isRunning) {
+      toggleON.style.display = 'block';
+      toggleOFF.style.display = 'none'
+    } else {
+      toggleON.style.display = 'none';
+      toggleOFF.style.display = 'block';
+    }
+
+  });
+}
+
+storage.get('isRunning', function(resp) {
+  if (resp.isRunning == undefined) {
+    console.log('Nothing set in local storage');
+    setRunning(true);
+    return;
+  } else 
+    displayToggleButtons();
+});
+
+
+
+
 var popup = document.getElementById("app");
 storage.get('color', function(resp) {
   var color = resp.color;
@@ -36,6 +89,7 @@ var renderBookmark = (data) => {
     renderMessage("Sorry, could not extract this page's title and URL")
   }
 }
+
 var DT;
 var suppressNotification = (data) => {
   // alert(data.val);
@@ -52,7 +106,7 @@ ext.tabs.query({active: true, currentWindow: true}, function(tabs) {
   var activeTab = tabs[0];
   // alert(activeTab.url);
   // chrome.tabs.sendMessage(activeTab.id, { action: 'process-page' }, renderBookmark);
-  chrome.tabs.sendMessage(activeTab.id, { action: 'suppress' }, suppressNotification);
+  // chrome.tabs.sendMessage(activeTab.id, { action: 'suppress' }, suppressNotification);
   // chrome.tabs.sendMessage(activeTab.id, { action: 'suppress-notification' }, function(message) {
   //   console.log(message);
   // });
