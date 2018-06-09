@@ -25,13 +25,20 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "http://*.facebook.com/*",
+        "https://*.facebook.com/*",
+        "http://*.youtube.com/*",
+        "https://*.youtube.com/*",
+        "http://*.twitter.com/*",
+        "https://*.twitter.com/*"
+      ],
+      "css": [
+        "styles/custom.css"
       ],
       "js": [
         "scripts/contentscript.js"
       ],
-      "run_at": "document_end",
+      "run_at": "document_start",
       "all_frames": false
     }
   ],
