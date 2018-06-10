@@ -9,8 +9,13 @@ var websites = {
 };
 
 var suppress = () => {
-  console.log('Calling suppress afain');
-  setTimeout(sNotification, 1000);
+  storage.get('isRunning', function(resp) {
+    var isRunning = resp.isRunning;
+    if (isRunning) {
+      console.log('Calling suppress again');
+      setTimeout(sNotification, 1000);
+    } 
+  });
 }
 
 var removeOverlay = () => {

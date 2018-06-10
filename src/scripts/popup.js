@@ -17,10 +17,12 @@ toggleOFF.addEventListener('click', function(e) {
 
 var setRunning = (set) => {
   if (set) {
+    console.log('set to true');
     storage.set({ isRunning: true }, function() {
       displayToggleButtons();
     });
   } else {
+    console.log('set to false');
     storage.set({ isRunning: false }, function() {
       displayToggleButtons();
     });
@@ -30,6 +32,7 @@ var setRunning = (set) => {
 var displayToggleButtons = () => {
   storage.get('isRunning', function(resp) {
     
+    console.log(JSON.stringify(resp));
     var isRunning = resp.isRunning;
     if (isRunning) {
       toggleON.style.display = 'block';
@@ -43,8 +46,7 @@ var displayToggleButtons = () => {
 }
 
 storage.get('isRunning', function(resp) {
-  if (resp.isRunning == undefined) {
-    console.log('Nothing set in local storage');
+  if (resp.isRunning === undefined) {
     setRunning(true);
     return;
   } else 

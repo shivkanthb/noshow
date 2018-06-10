@@ -1,6 +1,6 @@
 ![](src/images/shared/noshow_logo.png)
 
-A simple chrome extension to suppress notifications on facebook, twitter & youtube. 
+A simple chrome extension to suppress notifications on Facebook, Twitter and YouTube. 
 
 ### Usage
 Clone the repository
@@ -8,13 +8,17 @@ Clone the repository
 npm i
 npm run build
 ```
-On chrome:
+
+On Chrome:
+
 Load unpacked extension > `build/chrome`
 
-Opera:
+
+On Opera:
+
 Load unpacked extension > `build/opera`
 
 
 #### Todo
-1. Fix notification icon colors on facebook
-2. Local storage issue on Opera
+1. Fix notification icon colors on Facebook.
+2. Push to Chrome app store.
