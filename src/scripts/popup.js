@@ -57,7 +57,7 @@ storage.get('isRunning', function(resp) {
 var popup = document.getElementById("app");
 storage.get('color', function(resp) {
   var color = resp.color;
-  if(color) {
+  if (color) {
     popup.style.backgroundColor = color
   }
 });
