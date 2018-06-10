@@ -16,7 +16,7 @@ body, html {
 
 footer {
   color: $text-secondary;
-  text-align: right;
+  // text-align: right;
   font-size: 0.8em;
   a {
     outline: none;
@@ -37,6 +37,7 @@ footer {
 
 .two.column {
   width: 20%;
+  padding: 5px;
 }
 
 .popup-content {
@@ -47,11 +48,13 @@ footer {
 
 .app-name {
   font-size: 14px;
-  text-transform: uppercase;
-  color: $text-secondary;
+  // text-transform: uppercase;
+  // color: $text-secondary;
   text-align: center;
   margin: 0 auto 1em auto;
   padding: 0;
+  letter-spacing: initial;
+  font-weight: 500;
 }
 
 .site-description {
