@@ -1,13 +1,22 @@
 import ext from "./utils/ext";
 import storage from "./utils/storage";
 
+
+var websites = {
+  FB: 0,
+  TWITTER: 1,
+  YOUTUBE: 2
+};
+
 var suppress = () => {
+  console.log('Calling suppress afain');
   setTimeout(sNotification, 1000);
 }
 
 var removeOverlay = () => {
   var overlayElement = document.querySelector('.noshow-overlay');
-  document.documentElement.removeChild(overlayElement);
+  if (overlayElement)
+    document.documentElement.removeChild(overlayElement);
 }
 
 function onRequest(request, sender, sendResponse) {
@@ -37,6 +46,24 @@ var overlay = () => {
 
 }
 
+var hideCollection = (elementsToHide, website) => {
+
+  // hiding all the necessary notification elements
+  elementsToHide.forEach(function(ele) {
+    ele.setAttribute('style','display:none');
+  });
+
+  // modify the title
+  if (website === websites.FB) {
+    document.title = 'Facebook';
+  } else if (website === websites.TWITTER) {
+    document.title = 'Twitter';
+  } else if (website === websites.YOUTUBE) {
+    document.title = 'YouTube';
+  }
+
+}
+
 var sNotification = () => {
   console.log('suppressing that shit');
   var url = document.location.href;
@@ -44,25 +71,25 @@ var sNotification = () => {
 
   var domain = document.location.hostname;
   var elementsToHide = '';
+  var website = '';
 
   if (domain.indexOf('youtube.com') !== -1) {
     console.log('found youtube');
+    website = websites.YOUTUBE;
     elementsToHide = document.querySelectorAll('#notification-count');
   } else if (domain.indexOf('facebook.com') !== -1) {
     elementsToHide = document.querySelectorAll('.jewelCount');
+    website = websites.FB;
   } else if (domain.indexOf('twitter.com') !== -1) {
     elementsToHide = document.querySelectorAll('.count-inner');
+    website = websites.TWITTER;
   } else {
     console.log('Ignoring this link');
   }
-  console.log(domain);
 
   if (elementsToHide && elementsToHide.length) {
     console.log('Caught it man');
-    console.log(elementsToHide);
-    elementsToHide.forEach(function(ele) {
-      ele.setAttribute('style','display:none');
-    });
+    hideCollection(elementsToHide, website);
   } else {
     console.log('Not found in this page..' );
   }
