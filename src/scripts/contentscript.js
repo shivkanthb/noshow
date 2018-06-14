@@ -12,6 +12,7 @@ var suppress = () => {
   storage.get('isRunning', function(resp) {
     var isRunning = resp.isRunning;
     if (isRunning) {
+      console.log(isRunning);
       console.log('Calling suppress again');
       setTimeout(sNotification, 1000);
     } 
@@ -61,6 +62,11 @@ var hideCollection = (elementsToHide, website) => {
   // modify the title
   if (website === websites.FB) {
     document.title = 'Facebook';
+    // also if facebook, hide the floating notifications too.
+    var floatingElements = document.querySelectorAll('.lfloat');
+    floatingElements.forEach(function(fE) {
+      fE.setAttribute('style', 'display: none');
+    });
   } else if (website === websites.TWITTER) {
     document.title = 'Twitter';
   } else if (website === websites.YOUTUBE) {
